@@ -3,16 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>日曆作業</title>
 <style>
 
 * {
         box-sizing: border-box;
 }
-h1{
-    background-color:pink;
-    text-align: center;
+
+.calendar-bar{
+/* background-color: gray; */
+display:flex;
+justify-content:space-around;
+align-items: center
 }
+
+h1{
+    /* background-color:pink; */
+    text-align: center;  
+}
+
+
+
 .th-box{
     width:90px;
     height:90px;
@@ -46,6 +57,10 @@ h1{
     
 }
 
+.box:hover{
+   border:3px solid red;
+}
+
 
 .box-container{
     background-color: blanchedalmond;
@@ -58,6 +73,15 @@ h1{
 height:25px;
 text-align:center;
 }
+
+
+
+.holiday{
+    background-color:lightpink;
+    color:red;
+}
+
+
     
 </style>
 
@@ -81,9 +105,25 @@ $year=date("Y");
 }
 
 
+if($month-1>0){
+    $prev=$month-1;  //上一個月
+    $prevyear=$year;
+}else{
+    $prev=12;  //上一個月
+    $prevyear=$year-1;
+}
+if($month+1>12){
+    $next=1;  //下一個月
+    $nextyear=$year+1;
+}else{
+    $next=$month+1;  //下一個月
+    $nextyear=$year;
+}
 
-$today= date("Y-$month-d");
-$firstDay= date("Y-$month-01");                     // 這個月第一天
+
+
+$today= date("Y-m-d");
+$firstDay= date("$year-$month-01");                     // 這個月第一天
 $firstDayWeek= date("w", strtotime($firstDay));     // 第一天星期幾，0（星期天）到 6（星期六）
 $theDaysOfMonth=date("t", strtotime($firstDay));    // 該月份的天數幾天(28~31)
 
@@ -124,11 +164,32 @@ $monthDays[]=[
 ];
 }
 
+while (count($monthDays) % 7 !== 0) {
+    $monthDays[] = [];
+}
+
 ?>
-<h1>
+
+<div class="header">
+
+
+
+</div>
+
+<div class=calendar-bar>
+    <a href="?year=<?=$prevyear;?>&month=<?=$prev;?>">&laquo;&laquo;上一月</a>
+    <h1>
     <?php echo $year; ?>年
     <?php echo $month; ?>月
-</h1>
+    </h1>
+ <a href="?year=<?=$nextyear;?>&month=<?=$next;?>">下一月&raquo;&raquo;</a>
+
+
+
+</div>
+
+
+
 <?php
 echo "<div class='box-container'>";
 
