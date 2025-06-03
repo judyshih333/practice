@@ -11,10 +11,15 @@
 }
 
 .calendar-bar{
-/* background-color: gray; */
+width: 100%;
+height: 35px;
+background-color:rgba(255, 255, 255, 0.3);
 display:flex;
 justify-content:space-around;
-align-items: center
+align-items: center;
+position: fixed;
+padding-left:70px; 
+
 }
 
 h1{
@@ -23,19 +28,44 @@ h1{
 }
 
 
+.container{
+    /* width: 90%; */
+    background-image: url(./drawing-pad-1209781_1280.jpg);
+    background-position:bottom;
+    background-size: 90%;
+    display:flex;
+    justify-content: space-between; 
+    
+
+}
+.cl{
+    /* background-color: blanchedalmond; */
+    width: 60%;
+    height: 610px;
+    padding-left:30px;    
+    padding-top:40px;    
+}
+
+/* .cr{
+    width: 40%;
+    height: 610px;
+    /* background-color:lightpink; */
+    /* padding-top:40px;  
+} */ 
 
 .th-box{
     width:90px;
-    height:90px;
-    background-color:lightgray;
+    height:25px;
+    text-align:center;
+    background-color:rgba(255, 255, 255, 0.3);
     
     display:inline-block;
-    justify-content: center;
-    align-items: center;
-    border:1px solid blue;
+    /* justify-content: center; */
+    /* align-items: center; */
+    border:1px solid white;
     /* margin-left:1; */
     /* margin-top:1; */
-    vertical-align:top;
+    /* vertical-align:top; */
     border-radius: 5px;
     
 }
@@ -43,14 +73,12 @@ h1{
 .box{
     width:90px;
     height:90px;
-    background-color:lightblue;
+    background-color:rgba(255, 255, 255, 0.3);
     display:inline-block;
     justify-content: center;
     align-items: center;
 
-    border:1px solid blue;
-    /* margin-left:1px;
-    margin-top:1px; */
+    border:1px solid white;
     vertical-align:top;
     border-radius: 5px;
 
@@ -58,30 +86,22 @@ h1{
 }
 
 .box:hover{
-   border:3px solid red;
+background-color:rgba(255, 255, 255, 0.6);
+   /* border:3px solid red; */
 }
-
-
-.box-container{
-    background-color: blanchedalmond;
-    width: 700px;
-    margin:0 auto;
-    padding-left:1px;    
-    padding-top:1px;    
-}
-.th-box{
-height:25px;
-text-align:center;
-}
-
 
 
 .holiday{
     background-color:lightpink;
     color:red;
 }
-
-
+.day-num{
+    height:30px;
+    /* background: lightgray; */
+    padding-left: 5px;
+    padding-top: 5px;
+    
+}
     
 </style>
 
@@ -104,19 +124,21 @@ $year=$_GET['year'];
 $year=date("Y");
 }
 
-
+//上一個月
 if($month-1>0){
-    $prev=$month-1;  //上一個月
+    $prev=$month-1;  
     $prevyear=$year;
 }else{
-    $prev=12;  //上一個月
+    $prev=12;  
     $prevyear=$year-1;
 }
+
+//下一個月
 if($month+1>12){
-    $next=1;  //下一個月
+    $next=1;  
     $nextyear=$year+1;
 }else{
-    $next=$month+1;  //下一個月
+    $next=$month+1;  
     $nextyear=$year;
 }
 
@@ -128,9 +150,11 @@ $firstDayWeek= date("w", strtotime($firstDay));     // 第一天星期幾，0（
 $theDaysOfMonth=date("t", strtotime($firstDay));    // 該月份的天數幾天(28~31)
 
 $spDate=[
-'2025-05-01'=>'勞動節',
-'2025-05-30'=>'端午節',
-'2025-09-28'=>"教師節"
+'01-01'=>'元旦',
+'02-28'=>'228紀念日',
+'04-04'=>'兒童節',
+'05-01'=>'勞動節',
+'09-28'=>"教師節",
 ];
 
 $monthDays=[];                                   
@@ -147,17 +171,17 @@ $timestamp= strtotime("$i days", strtotime($firstDay)); // 「在本月1號，�
 $date=date("d", $timestamp);                            // $timestamp 轉成「日」
 $holiday="";
 foreach($spDate as $d=>$value){
-if($d==date("Y-m-d", $timestamp)){
+if($d==date("m-d", $timestamp)){
 $holiday=$value;
 }
 }
 
 $monthDays[]=[
 "day"=>date("d", $timestamp),
-"fullDate"=>date("Y-m-d", $timestamp),
-"weekOfYear"=>date("W", $timestamp),
+// "fullDate"=>date("Y-m-d", $timestamp),
+// "weekOfYear"=>date("W", $timestamp),
 "week"=>date("w", $timestamp),
-"daysOfYear"=>date("z", $timestamp),
+// "daysOfYear"=>date("z", $timestamp),
 "workday"=>date("N", $timestamp)<6?true:false,      // 判斷工作日true
 "holiday"=>$holiday,
 
@@ -170,28 +194,20 @@ while (count($monthDays) % 7 !== 0) {
 
 ?>
 
-<div class="header">
-
-
-
-</div>
 
 <div class=calendar-bar>
-    <a href="?year=<?=$prevyear;?>&month=<?=$prev;?>">&laquo;&laquo;上一月</a>
-    <h1>
-    <?php echo $year; ?>年
-    <?php echo $month; ?>月
-    </h1>
- <a href="?year=<?=$nextyear;?>&month=<?=$next;?>">下一月&raquo;&raquo;</a>
 
+<a href="?year=<?= date('Y'); ?>&month=<?= date('n'); ?>">Today</a>
 
+<a href="?year=<?=$prevyear;?>&month=<?=$prev;?>">&laquo;&laquo;上一月</a>   
+<a href="?year=<?=$nextyear;?>&month=<?=$next;?>">下一月&raquo;&raquo;</a>
 
 </div>
 
-
+<div class="container">
 
 <?php
-echo "<div class='box-container'>";
+echo "<div class='cl'>";
 
 echo "<div class='th-box'>日</div>";
 echo "<div class='th-box'>一</div>";
@@ -205,7 +221,7 @@ echo "<div class='th-box'>六</div>";
 foreach($monthDays as $day){
 
 echo "<div class='box'>";
-echo "<div class='day-info'>";
+// echo "<div class='day-info'>";
 echo "<div class='day-num'>";
 if(isset($day['day'])){
 
@@ -214,10 +230,10 @@ echo $day["day"];
 echo "&nbsp;";
 }
 echo "</div>";
-echo "</div>";
+// echo "</div>";
 
 
-echo "<div class='holiday-info'>";
+// echo "<div class='holiday-info'>";
 if(isset($day['holiday'])){
 echo "<div class='holiday'>";
 echo $day['holiday'];
@@ -225,15 +241,22 @@ echo "</div>";
 }else{
 echo "&nbsp;";
 }
-echo "</div>";
+// echo "</div>";
 echo "</div>";
 }
 echo "</div>";
 
 ?>
 
+<!-- <div class="cr">
+<h1>
+    <?php echo $year; ?>年
+    <?php echo $month; ?>月
+</h1>
+</div> -->
 
 
+</div>
 
 </body>
 </html>
