@@ -13,71 +13,77 @@
 .calendar-bar{
 width: 100%;
 height: 35px;
-background-color:rgba(255, 255, 255, 0.3);
 display:flex;
-justify-content:space-around;
+justify-content: right;
 align-items: center;
 position: fixed;
-padding-left:70px; 
+background-color: aqua;
+padding-right:230px;
+margin-top: 150px;
 
 }
+.nav{
+    background-color:rgba(255, 255, 255, 0.1);
+    width: 100px;
+    height: 35px;
+    border: 1px solid white;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 18px;
+    font-family: '標楷體';
+    border-radius: 5px;
+    /* background-color: aqua; */
+        
+}
+.nav:hover{
+    background-color:rgba(128, 128, 128, 0.1);
+}
 
-h1{
-    /* background-color:pink; */
-    text-align: center;  
+h1{width: 100%;
+        /* background-color: pink; */
+    text-align: center;
+    padding-top: 100px;
+    
 }
 
 
 .container{
-    /* width: 90%; */
-    background-image: url(./drawing-pad-1209781_1280.jpg);
-    background-position:bottom;
-    background-size: 90%;
-    display:flex;
-    justify-content: space-between; 
-    
+    background-image: url(./paper-2221812_1280.jpg) ;
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: 100%;
+     
 
 }
 .cl{
     /* background-color: blanchedalmond; */
-    width: 60%;
+    width: 700px;
     height: 610px;
     padding-left:30px;    
-    padding-top:40px;    
+    padding-top:40px;
+    margin: auto;
+    
 }
-
-/* .cr{
-    width: 40%;
-    height: 610px;
-    /* background-color:lightpink; */
-    /* padding-top:40px;  
-} */ 
 
 .th-box{
     width:90px;
-    height:25px;
+    height:24px;
     text-align:center;
-    background-color:rgba(255, 255, 255, 0.3);
-    
+    background-color:rgba(128, 128, 128, 0.1);
     display:inline-block;
-    /* justify-content: center; */
-    /* align-items: center; */
     border:1px solid white;
-    /* margin-left:1; */
-    /* margin-top:1; */
-    /* vertical-align:top; */
     border-radius: 5px;
-    
+    margin-top: 5px;
+            
 }
 
 .box{
     width:90px;
-    height:90px;
-    background-color:rgba(255, 255, 255, 0.3);
+    height:85px;
+    background-color:rgba(255, 255, 255, 0.1);
     display:inline-block;
     justify-content: center;
     align-items: center;
-
     border:1px solid white;
     vertical-align:top;
     border-radius: 5px;
@@ -86,14 +92,14 @@ h1{
 }
 
 .box:hover{
-background-color:rgba(255, 255, 255, 0.6);
-   /* border:3px solid red; */
+background-color:rgba(128, 128, 128, 0.1);
 }
 
 
 .holiday{
     background-color:lightpink;
     color:red;
+    padding-left: 5px;
 }
 .day-num{
     height:30px;
@@ -196,15 +202,22 @@ while (count($monthDays) % 7 !== 0) {
 
 
 <div class=calendar-bar>
-
-<a href="?year=<?= date('Y'); ?>&month=<?= date('n'); ?>">Today</a>
-
-<a href="?year=<?=$prevyear;?>&month=<?=$prev;?>">&laquo;&laquo;上一月</a>   
+<div class="nav">
+<a href="?year=<?=$prevyear;?>&month=<?=$prev;?>">&laquo;&laquo;上一月</a></div>
+<div class="nav">
+<a href="?year=<?= date('Y'); ?>&month=<?= date('n'); ?>">Today</a></div>
+<div class="nav">
 <a href="?year=<?=$nextyear;?>&month=<?=$next;?>">下一月&raquo;&raquo;</a>
-
+</div>
 </div>
 
+
 <div class="container">
+<h1>
+<?php echo $year; ?>年
+<?php echo $month; ?>月
+</h1>
+
 
 <?php
 echo "<div class='cl'>";
@@ -248,12 +261,7 @@ echo "</div>";
 
 ?>
 
-<!-- <div class="cr">
-<h1>
-    <?php echo $year; ?>年
-    <?php echo $month; ?>月
-</h1>
-</div> -->
+
 
 
 </div>
